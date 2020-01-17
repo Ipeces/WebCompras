@@ -46,7 +46,7 @@ if (!isset($_POST) || empty($_POST)) {
 	
 	
 	
-	$conn = new mysqli('10.130.2.255', 'root', 'rootroot', 'comprasweb');
+	$conn = new mysqli('10.128.10.9', 'root', 'rootroot', 'comprasweb');
 
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
