@@ -56,7 +56,7 @@ if (!isset($_POST) || empty($_POST)) {
 	
 	$codigo = obtenerCodigo($db,$categoria);
 	
-	$conn = new mysqli('10.128.10.9', 'root', 'rootroot', 'COMPRASWEB');
+	$conn = new mysqli('10.128.10.9', 'root', 'rootroot', 'sampledb');
 
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
