@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<h1>ALTA CATEGORÍAS - Nombre del alumno</h1>
+<h1>ALTA CATEGORÍAS - Isaac Peces</h1>
 <?php
 include "conexion.php";
 
