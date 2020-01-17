@@ -52,7 +52,7 @@ if (!isset($_POST) || empty($_POST)) {
 		die("Connection failed: " . $conn->connect_error);
 	}
 
-	$sql = "INSERT INTO categoria (id_categoria,nombre) VALUES ('$idcat','$nombre')";
+	$sql = "INSERT INTO CATEGORIA (id_categoria,nombre) VALUES ('$idcat','$nombre')";
 
 	if ($conn->query($sql) === TRUE) {
 		echo "New record created successfully";
