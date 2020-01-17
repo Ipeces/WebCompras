@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<h1>ALTA PRODUCTOS - Nombre del alumno</h1>
+<h1>ALTA PRODUCTOS - Isaac Peces</h1>
 <?php
 include "conexion.php";
 
@@ -56,7 +56,7 @@ if (!isset($_POST) || empty($_POST)) {
 	
 	$codigo = obtenerCodigo($db,$categoria);
 	
-	$conn = new mysqli('10.130.2.255', 'root', 'rootroot', 'comprasweb');
+	$conn = new mysqli('10.128.10.9', 'root', 'rootroot', 'comprasweb');
 
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
