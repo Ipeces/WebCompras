@@ -62,7 +62,7 @@ if (!isset($_POST) || empty($_POST)) {
 		die("Connection failed: " . $conn->connect_error);
 	}
 
-	$sql = "INSERT INTO producto (id_producto,nombre,precio,id_categoria) VALUES ('$idprod','$nombre','$prec','$codigo')";
+	$sql = "INSERT INTO PRODUCTO (id_producto,nombre,precio,id_categoria) VALUES ('$idprod','$nombre','$prec','$codigo')";
 
 	if ($conn->query($sql) === TRUE) {
 		echo "New record created successfully";
@@ -81,7 +81,7 @@ if (!isset($_POST) || empty($_POST)) {
 	function obtenerCategorias($db) {
 	$categorias = array();
 	
-	$sql = "SELECT id_categoria,nombre FROM categoria";
+	$sql = "SELECT id_categoria,nombre FROM CATEGORIA";
 	
 	$resultado = mysqli_query($db, $sql);
 	if ($resultado) {
@@ -96,7 +96,7 @@ if (!isset($_POST) || empty($_POST)) {
 
 	$idCategoria = null;
 	
-	$sql = "SELECT id_categoria FROM categoria WHERE nombre = '$categoria'";
+	$sql = "SELECT id_categoria FROM CATEGORIA WHERE nombre = '$categoria'";
 	$resultado = mysqli_query($db, $sql);
 	if ($resultado) {
 		while ($row = mysqli_fetch_assoc($resultado)) {
