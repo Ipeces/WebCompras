@@ -1,14 +1,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Web compras</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
+   
 </head>
 
 <body>
-<h1>ALTA CATEGORÍAS - Isaac Peces</h1>
+<h1>ALTA CATEGORÍAS </h1>
 <?php
 include "conexion.php";
 
@@ -19,58 +17,40 @@ if (!isset($_POST) || empty($_POST)) {
 	
 	
     /* Se inicializa la lista valores*/
-	echo '<form action="" method="post">';
+	echo '<form action="comaltacat.php" method="post">';
 ?>
 <div class="container ">
 <!--Aplicacion-->
-<div class="card border-success mb-3" style="max-width: 30rem;">
-<div class="card-header">Datos Categoría</div>
-<div class="card-body">
-		<div class="form-group">
-        ID CATEGORIA <input type="text" name="idcategoria" placeholder="idcategoria" class="form-control">
-        </div>
-		<div class="form-group">
-        NOMBRE CATEGORIA <input type="text" name="nombre" placeholder="nombre" class="form-control">
-        </div>
+
+<h2>Datos Categoría</h2>
+
+	
+       <p> ID CATEGORIA</p> <input type="text" name="id" placeholder="idcategoria">
+     
+        <p>NOMBRE CATEGORIA </p><input type="text" name="nombre" placeholder="nombre" >
+   
 
 		</BR>
 <?php
 	echo '<div><input type="submit" value="Alta Categoría"></div>
 	</form>';
 } else { 
-
-	// Aquí va el código al pulsar submit
-   	
-	$idcat = $_POST['idcategoria'];
-	$nombre = $_POST['nombre'];
-	
-	
-	
-	$conn = new mysqli('10.128.10.9', 'root', 'rootroot', 'COMPRASWEB');
-
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
-
-	$sql = "INSERT INTO CATEGORIA (id_categoria,nombre) VALUES ('$idcat','$nombre')";
-
-	if ($conn->query($sql) === TRUE) {
-		echo "New record created successfully";
-	} else {
-		echo "Error: " . $sql . "<br>" . $conn->error;
-	}
-
-	$conn->close();
-	
+    $id=$_POST["id"];
+    $nombre=$_POST["nombre"];
+	//  código al pulsar submit
+    $crear_categoria="INSERT into CATEGORIA (ID_CATEGORIA,NOMBRE) values('$id','$nombre')";
+    
+    if(mysqli_query($db,$crear_categoria)){
+        echo ('<script language="javascript">alert("Creado correctamente")</script>');
+    }
+    else{
+        echo mysql_error();
+    }
 }
 ?>
 
 <?php
 // Funciones utilizadas en el programa
-
-
-
-
 
 ?>
 

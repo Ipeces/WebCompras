@@ -1,14 +1,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Web compras</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
+ 
 </head>
 
 <body>
-<h1>ALTA PRODUCTOS - Isaac Peces</h1>
+<h1>ALTA PRODUCTOS </h1>
 <?php
 include "conexion.php";
 
@@ -16,98 +15,78 @@ include "conexion.php";
 /* Se muestra el formulario la primera vez */
 if (!isset($_POST) || empty($_POST)) { 
 
-	$categorias = obtenerCategorias($db);
+	
 	
     /* Se inicializa la lista valores*/
 	echo '<form action="" method="post">';
 ?>
 <div class="container ">
 <!--Aplicacion-->
-<div class="card border-success mb-3" style="max-width: 30rem;">
-<div class="card-header">Datos Producto</div>
-<div class="card-body">
-		<div class="form-group">
-        ID PRODUCTO <input type="text" name="idproducto" placeholder="idproducto" class="form-control">
-        </div>
-		<div class="form-group">
-        NOMBRE PRODUCTO <input type="text" name="nombre" placeholder="nombre" class="form-control">
-        </div>
-		<div class="form-group">
-        PRECIO PRODUCTO <input type="text" name="precio" placeholder="precio" class="form-control">
-        </div>
-	<div class="form-group">
+<h2 >Datos Producto</h2>
+<div >
+		
+        <p>ID PRODUCTO </p><input type="text" name="id" placeholder="idproducto" >
+        
+        <p>NOMBRE PRODUCTO </p><input type="text" name="nombre" placeholder="nombre" >
+        
+      <p>  PRECIO PRODUCTO </p><input type="text" name="precio" placeholder="precio" >
+   </div>    
+	<div>
 	<label for="categoria">Categorías:</label>
-	<select name="categoria">
-	<?php foreach($categorias as $categoria) : ?>
-		<option> <?php echo $categoria ?> </option>
-	<?php endforeach; ?>
-	</select>
+    <?php
+$arraycategoria=vercategoria($db);
+     echo ("<select name='categoria'><br>");
+       foreach ($arraycategoria as $categoria) {
+           echo("<option> $categoria </option>");
+       } 
+  echo("</select>");
+        ?>
 	</div>
 	</BR>
 <?php
 	echo '<div><input type="submit" value="Alta Producto"></div>
 	</form>';
 } else { 
-	
-	$idprod = $_POST['idproducto'];
-	$nombre = $_POST['nombre'];
-	$prec = $_POST['precio'];
-	$categoria = $_POST['categoria'];
-	
-	$codigo = obtenerCodigo($db,$categoria);
-	
-	$conn = new mysqli('10.128.10.9', 'root', 'rootroot', 'COMPRASWEB');
 
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
-
-	$sql = "INSERT INTO PRODUCTO (id_producto,nombre,precio,id_categoria) VALUES ('$idprod','$nombre','$prec','$codigo')";
-
-	if ($conn->query($sql) === TRUE) {
-		echo "New record created successfully";
-	} else {
-		echo "Error: " . $sql . "<br>" . $conn->error;
-	}
-
-	$conn->close();
-	
+	// Aquí va el código al pulsar submit
+    $id_producto=$_POST["id"];
+    $nombre=$_POST["nombre"];
+    $precio=$_POST["precio"];
+    $nombre_categoria=$_POST["categoria"];
+    
+    $buscar_codigo="SELECT ID_CATEGORIA from CATEGORIA where nombre='$nombre_categoria'";
+   
+    $idk=mysqli_query($db,$buscar_codigo);
+    $fila=mysqli_fetch_assoc($idk);
+    $codigo_departamento=$fila['ID_CATEGORIA'];
+var_dump($buscar_codigo);
+    
+    $insertar="INSERT INTO PRODUCTO (ID_PRODUCTO,NOMBRE,PRECIO,ID_CATEGORIA) values('$id_producto','$nombre','$precio','$codigo_departamento')";
+    
+    if(mysqli_query($db,$insertar)){
+ echo ('<script language="javascript">alert("Creado correctamente")</script>');
+    }
+    else{
+         echo ('<script language="javascript">alert("error")</script>');
+    }
 }
 ?>
 
 <?php
 // Funciones utilizadas en el programa
 
-	function obtenerCategorias($db) {
-	$categorias = array();
-	
-	$sql = "SELECT id_categoria,nombre FROM CATEGORIA";
-	
-	$resultado = mysqli_query($db, $sql);
-	if ($resultado) {
-		while ($row = mysqli_fetch_assoc($resultado)) {
-			$categorias[] = $row['nombre'];
-		}
-	}
-	return $categorias;
+function vercategoria($db){
+    $categoria=array();
+    $sql = "SELECT NOMBRE FROM CATEGORIA";
+    $resultado=mysqli_query($db,$sql);
+    if($resultado){
+        while($fila=mysqli_fetch_assoc($resultado)){
+
+        $categoria[]=$fila['NOMBRE'];
+            }
+    }
+    return $categoria;
 }
-
-	function obtenerCodigo($db,$categoria) {
-
-	$idCategoria = null;
-	
-	$sql = "SELECT id_categoria FROM CATEGORIA WHERE nombre = '$categoria'";
-	$resultado = mysqli_query($db, $sql);
-	if ($resultado) {
-		while ($row = mysqli_fetch_assoc($resultado)) {
-			$idCategoria = $row['id_categoria'];
-		}
-	}
-	
-	return $idCategoria;
-
-}
-
 	
 
 
